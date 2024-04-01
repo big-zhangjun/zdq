@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生日快乐~</title>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        overflow: hidden;
+      }
+
+      .container {
+        background: linear-gradient(#07112c, #2355d6);
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .land {
+        position: relative;
+        z-index: 20;
+        height: 60vh;
+        margin-top: 75vh;
+        width: 300%;
+        background: linear-gradient(#072945 0%, #000 30%);
+        border-radius: 50%;
+        margin-left: -100vw;
+      }
+
+      .happy-birthday__container {
+        position: absolute;
+        top: 130px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        opacity: 0.6;
+        transition: all 2s;
+      }
+
+      .happy-birthday__container > div {
+        height: 100px;
+        width: 100px;
+        margin: 0 10px;
+        flex: 0 1 auto;
+      }
+
+      .person {
+        position: absolute;
+        z-index: 99;
+        top: calc(75vh - 100px);
+        left: calc(50vw - 30px);
+        height: 100px;
+        width: 60px;
+      }
+
+      .person-reflect {
+        -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left
+              bottom, from(transparent), to(rgba(0, 0, 0, 0.6)));
+      }
+
+      .head {
+        position: relative;
+        height: 40px;
+        width: 40px;
+        background-color: #000;
+        border-radius: 50%;
+        margin-left: 10px;
+        z-index: 99;
+      }
+
+      .body-container {
+        margin-left: 15px;
+        margin-top: -10px;
+        width: 30px;
+        position: relative;
+        z-index: 20;
+      }
+
+      .body-content {
+        width: 100%;
+        height: 35px;
+        background-color: #000;
+      }
+
+      .body-radius {
+        width: 100%;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #000;
+        margin-top: -5px;
+      }
+
+      .legs {
+        margin-left: 15px;
+        margin-top: -6px;
+        height: 30px;
+        width: 36px;
+      }
+
+      .left {
+        display: inline-block;
+        border-right: 7px solid transparent;
+        border-left: 5px solid transparent;
+        border-top: 35px solid #000;
+      }
+
+      .right {
+        display: inline-block;
+        border-right: 6px solid transparent;
+        border-left: 7px solid transparent;
+        border-top: 35px solid #000;
+      }
+
+      .left-hand {
+        position: absolute;
+        height: 35px;
+        width: 10px;
+        background-color: #000;
+        border-radius: 50%;
+        left: 10px;
+        top: 35px;
+        z-index: 1;
+      }
+
+      .right-hand {
+        position: absolute;
+        width: 9px;
+        height: 50px;
+        background-color: #000;
+        left: 45px;
+        top: 7px;
+        border-radius: 50%;
+        transform: rotate(20deg);
+        z-index: 1;
+      }
+
+      .person-show > .head {
+        background: linear-gradient(#072253, rgb(20, 19, 65));
+      }
+
+      .person-show > .body-container > div {
+        background-color: rgb(20, 19, 65);
+      }
+
+      .person-show > .left-hand,
+      .right-hand {
+        background-color: rgb(20, 19, 65);
+      }
+
+      .person-show .legs > div {
+        border-top-color: #151618;
+      }
+      .fadeIn {
+        animation: fade-in 3s both 1000ms alternate;
+      }
+      .fadeIn2 {
+        animation: fade-in 3s both 4000ms alternate;
+      }
+      .fadeIn3 {
+        animation: fade-in 3s both 7000ms alternate;
+      }
+      .fadeIn4 {
+        animation: fade-in 3s both 10000ms alternate;
+      }
+      .fadeIn5 {
+        animation: fade-in 3s both 13000ms alternate;
+      }
+      .fadeIn6 {
+        animation: fade-in 3s both 16000ms alternate;
+      }
+      .fadeIn7 {
+        animation: fade-in 3s both 19000ms alternate;
+      }
+      .fadeIn8 {
+        animation: fade-in 3s both 22000ms alternate;
+      }
+      .fadeIn9 {
+        animation: fade-in 3s both 25000ms alternate;
+      }
+      .fadeIn10 {
+        animation: fade-in 3s both 28000ms alternate;
+      }
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes star-scale {
+        from {
+          transform: scale(1, 1);
+        }
+
+        25% {
+          transform: scale(0.1, 0.1);
+        }
+
+        50% {
+          transform: scale(1, 1);
+        }
+
+        25% {
+          transform: scale(2, 2);
+        }
+
+        to {
+          transform: scale(1, 1);
+        }
+      }
+
+      .star {
+        height: 3px;
+        width: 3px;
+        background-color: #faf89d;
+        border-radius: 50%;
+        position: absolute;
+        animation: star-scale 2s;
+        animation-iteration-count: infinite;
+      }
+      .bmt {
+        position: absolute;
+        z-index: 99;
+        width: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 7.8vh;
+      }
+      .shade {
+        position: absolute;
+        z-index: 99;
+        width: 50px;
+        left: 50.5%;
+        transform: translateX(-50%);
+        bottom: 6vh;
+      }
+      #my-canvas {
+        position: absolute;
+        width: 100%;
+        height: 80vh;
+      }
+      .font {
+        position: fixed;
+        top: 10vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4rem;
+      }
+      .font2 {
+        position: fixed;
+        top: 10vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5rem;
+      }
+      .font3 {
+        position: fixed;
+        top: 10vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6rem;
+      }
+      .f4 {
+        width: 3rem;
+      }
+      .name {
+        color: #faf89d;
+        font-size: .4rem;
+        text-align: center;
+        display: block;
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <audio
+      id="musicStar"
+      src="./img/wt.mp3"
+      autoplay="true"
+      preload="auto"
+      loop="loop"
+    ></audio>
+    <div class="container">
+      <span class="name font fadeIn">在这个特殊的日子里</span>
+      <span class="name font2 fadeIn2">愿你收获所有的祝福，装满你的心愿。</span>
+      <span class="name font2 fadeIn3">生日快乐</span>
+      <!-- <img class="font fadeIn" src="./img/font.png" alt="" />
+      <img class="font2 fadeIn3" src="./img/f1.png" alt="" />
+      <img class="font f4 fadeIn4" src="./img/f2.png" alt="" />
+      <img class="font3 fadeIn5" src="./img/f3.png" alt="" />
+      <img class="font fadeIn6" src="./img/f4.png" alt="" />
+      <img class="font3 fadeIn7" src="./img/f5.png" alt="" />
+      <img class="font3 fadeIn8" src="./img/f6.png" alt="" />
+      <img class="font3 fadeIn9" src="./img/f7.png" alt="" />
+      <img class="font2 fadeIn2" src="./img/font3.png" alt="" />
+      <img class="font f4 fadeIn10" src="./img/f8.png" alt="" /> -->
+      <canvas id="my-canvas"></canvas>
+      <img class="bmt" src="./img/bmt2.png" alt="" />
+      <div class="land"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.2/dist/hanzi-writer.min.js"></script>
+    <script>
+      document.addEventListener(
+        "WeixinJSBridgeReady",
+        function () {
+          let audio = document.getElementById("musicStar");
+          audio.play();
+          /**musicStar为音乐audio的 id**/
+        },
+        false
+      );
+
+      const WIDTH = 750; //设计稿尺寸
+      const setView = () => {
+        document.documentElement.style.fontSize =
+          (100 * screen.width) / WIDTH + "px";
+      };
+      window.onorientationchange = setView;
+      window.addEventListener("resize", () => {
+        setView();
+      });
+      setView();
+      // 烟花效果
+      var canvas = document.getElementById("my-canvas");
+      var context = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight * 0.8;
+      }
+
+      function clearCanvas() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+      }
+
+      window.addEventListener("resize", resizeCanvas, false);
+      resizeCanvas();
+
+      function mouseDownHandler(e) {
+        var x = e.clientX;
+        var y = e.clientY;
+        fire(x, y);
+      }
+      var rid;
+      function fire(x, y) {
+        createFireworks(x, y);
+        function tick() {
+          context.globalCompositeOperation = "destination-out";
+          context.fillStyle = "rgba(0, 0, 0," + 20 / 100 + ")";
+          context.fillRect(0, 0, canvas.width, canvas.height);
+          context.globalCompositeOperation = "lighter";
+          drawFireworks();
+          rid = requestAnimationFrame(tick);
+        }
+        cancelAnimationFrame(rid);
+        tick();
+      }
+      var particles = [];
+      function createFireworks(sx, sy) {
+        clearCanvas();
+        particles = [];
+        var hue = Math.floor(Math.random() * 51) + 150;
+        var hueVariance = 30;
+        var count = 365;
+        for (var i = 0; i < count; i++) {
+          var p = {};
+          var angle = Math.floor(Math.random() * 360);
+          p.radians = (angle * Math.PI) / 180;
+          p.x = sx;
+          p.y = sy;
+          p.speed = Math.random() * 5 + 0.4;
+          p.radius = p.speed;
+          p.size = Math.floor(Math.random() * 3) + 1;
+          p.hue =
+            Math.floor(
+              Math.random() * (hue + hueVariance - (hue - hueVariance))
+            ) +
+            (hue - hueVariance);
+          p.brightness = Math.floor(Math.random() * 31) + 50;
+          p.alpha = (Math.floor(Math.random() * 61) + 40) / 100;
+          particles.push(p);
+        }
+      }
+      function drawFireworks() {
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          var vx = Math.cos(p.radians) * p.radius;
+          var vy = Math.sin(p.radians) * p.radius + 1.2;
+          p.x += vx;
+          p.y += vy;
+          p.radius *= 1 - p.speed / 300;
+          p.alpha -= 0.005;
+          context.beginPath();
+          context.arc(p.x, p.y, p.size, 0, Math.PI * 2, false);
+          context.closePath();
+          context.fillStyle =
+            "hsla(" +
+            p.hue +
+            100 +
+            ", 100%, " +
+            p.brightness +
+            "%, " +
+            p.alpha +
+            ")";
+          context.fill();
+        }
+      }
+      function fireRandom() {
+        const x = canvas.width * 0.7 * Math.random() + canvas.width * 0.2;
+        const y = canvas.height * 0.6 * Math.random() + canvas.height * 0.2;
+        fire(x, y);
+      }
+
+      document.addEventListener("mousedown", mouseDownHandler, false);
+
+      // 星星效果
+      function Star(type) {
+        this.speed = 1;
+        this.star = document.createElement("div");
+        this.star.className = type === "star" ? "star" : "moon";
+        this.star.style.top = "0px";
+        this.star.style.left = Math.random() * window.innerWidth + 1 + "px";
+        document.body.appendChild(this.star);
+      }
+      Star.prototype.down = function () {
+        var that = this;
+        function move() {
+          that.star.style.top = that.star.offsetTop + that.speed + "px";
+          if (that.star.offsetTop > window.innerHeight) {
+            clearInterval(timer);
+            document.body.removeChild(that.star);
+          }
+        }
+        var timer = setInterval(move, 25);
+      };
+      let starTimer = setInterval(() => {
+        new Star("star").down();
+      }, 300);
+
+      // 文字效果
+      const BASE_CONFIG = {
+        width: 100,
+        height: 100,
+        padding: 5,
+        delayBetweenStrokes: 0,
+        strokeAnimationSpeed: 1.2,
+        showCharacter: false,
+        showOutline: false
+      };
+      const WRITER_CONFIG = {
+        ...BASE_CONFIG,
+        strokeColor: "#e09037"
+      };
+
+      const NAME_CONFIG = {
+        ...BASE_CONFIG,
+        strokeColor: "#87db92"
+      };
+
+      setInterval(() => {
+        fireRandom();
+      }, 3000);
+
+      // const writerList = getWriterList();
+      // generateAnimateWriter(writerList);
+    </script>
+  </body>
+</html>
